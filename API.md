@@ -134,7 +134,7 @@ Tipos reconhecidos no formato informal: `string`, `int`/`integer`, `number`, `bo
 }
 ```
 
-O pipeline structured **nao** usa tools Ollama; o contexto vem da busca em documentos do catalogo, governada por kinds `search_profile` e `section_header` no `/admin`.
+O pipeline structured usa **tool loop** quando algum `tool_policy` casar (mesmo criterio do chat livre); em seguida gera o JSON com `format: response_schema`. O prematch de catalogo continua via `search_profile` / `section_header` nos kinds.
 
 **Response 422:** JSON invalido ou fora do schema (`detail`, `raw_content`).
 

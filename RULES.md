@@ -57,7 +57,7 @@ Escopo de cada kind no YAML:
 - Parser fixo de matriz curricular (linhas `#### SIGLA` por fase).
 - Enum `tecnico` / `sistemas` em tools, API ou detecção de curso.
 - Listas fixas do tipo “se contém `cst` → sistemas” em `tuning_engine` ou `course_detect`.
-- Tool loop no endpoint structured.
+- Tool loop no structured (removido: structured usa tools quando `tool_policy` casar).
 
 ### Tags de curso
 
@@ -135,7 +135,7 @@ Tools possíveis (quando permitidas):
 ### `POST /api/chat/structured` (JSON obrigatório)
 
 1. **Sem** campo `curso` no body (se enviado por engano, é ignorado).
-2. **Sem** tool loop — uma (ou duas) chamadas Ollama com `format: response_schema`.
+2. **Tool loop** quando algum `tool_policy` casar (mesmas regras do chat livre); depois uma (ou duas) chamadas Ollama com `format: response_schema` (sem tools na fase JSON).
 3. **Formato informal** na mensagem:
    - Objeto plano `{ "opcao1": "string", ... }` → resposta com **as mesmas chaves no topo** (não vira `items` nem array).
    - Lista/matriz só quando o bloco pedir array de verdade: `{ [ "nome": "string", ... ]... }` ou `...` no formato.
@@ -171,7 +171,7 @@ Exemplo de resposta desejada (3º semestre CST):
 |----------|--------|
 | `matriz_extract` ou parser de linhas fixas do PPC | Layout do PPC varia entre arquivos/versões |
 | Hardcode `tecnico`/`sistemas`/`cst` no Python | Curso e gatilhos vivem nos kinds |
-| Tool loop no `/api/chat/structured` | Tools puxam 1 trecho errado e quebram listas |
+| Tools na fase JSON do structured (`format` + `tools` juntos) | A resposta final deve ser só JSON do schema |
 | Prematch de 1 seção para “todas as matérias” | Resposta com uma disciplina só |
 | Envelope no corpo 200 do structured | Cliente espera JSON puro do schema |
 | Pedir “qual curso?” ao usuário | Detecção silenciosa via `course_signal` |
@@ -203,7 +203,7 @@ python -m pytest tests/ -q
 Cobertura relevante das regras acima:
 
 - `test_tuning_search_profile.py` — kinds `search_profile` / `tool_policy`
-- `test_structured_no_tools.py` — structured não chama tool loop
+- `test_structured_tools.py` — structured usa tool loop quando `tool_policy` casar
 - `test_document_search_multi.py` — várias seções com `max_sections` alto
 - `test_api_routes.py` — corpo 200 do structured sem envelope
 

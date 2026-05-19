@@ -365,7 +365,16 @@ async def chat_structured_completion(
         inject_catalog_context=inject_catalog,
     )
 
+    allowed = get_allowed_tools(question)
+    ollama_tools = tools_for_ollama(allowed)
+    tool_calls_made: list[dict] = []
+
     async with httpx.AsyncClient(timeout=300.0) as client:
+        if ollama_tools:
+            ollama_messages, tool_calls_made, _ = await _run_tool_loop(
+                client, ollama_messages, ollama_tools
+            )
+
         for attempt in range(2):
             if attempt > 0:
                 ollama_messages.append(
@@ -409,6 +418,9 @@ async def chat_structured_completion(
                     raw_content=raw,
                     schema_errors=schema_errors,
                 )
-            return {"data": parsed}
+            out: dict = {"data": parsed}
+            if tool_calls_made:
+                out["tool_calls"] = tool_calls_made
+            return out
 
     raise StructuredParseError("Falha ao obter JSON estruturado apos tentativas")
