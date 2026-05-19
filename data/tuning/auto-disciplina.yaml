@@ -1,0 +1,14 @@
+kind: auto_search
+enabled: true
+priority: 53
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- unidade curricular
+- disciplina
+- ppc
+- carga horaria
+- semestre
+- fase

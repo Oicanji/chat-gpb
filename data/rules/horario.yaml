@@ -1,0 +1,20 @@
+id: horario
+descricao: Horario de aulas do campus Garopaba
+triggers:
+- horario
+- horário
+- horarios
+- horários
+- grade de aulas
+- quando tem aula
+- que horas
+- horario de aula
+- horário de aula
+resposta_obrigatoria: 'Responda de forma curta. O horario oficial esta publicado no site
+  do IFSC Garopaba.
+
+  Inclua sempre este link (texto clicavel ou URL explicita):
+
+  https://www.ifsc.edu.br/web/campus-garopaba/horario-de-aula
+
+  '

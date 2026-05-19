@@ -1,0 +1,33 @@
+---
+description: Contexto persistente do curso Superior de Sistemas para Internet
+alwaysApply: true
+---
+
+# Conhecimento do curso: Sistemas para Internet
+
+## Fonte oficial
+
+- Use `documentos/ppc-sistemas-para-internet.md` como fonte principal para disciplinas, ementas, carga horaria, competencias, periodos e organizacao curricular.
+- Ao responder sobre o curso, priorize essa fonte em vez de suposicoes.
+
+## Identidade do curso
+
+- Tratar "Sistemas para Internet" como curso superior de tecnologia (CST), ou seja, graduacao.
+- Quando houver risco de confusao com outro nivel de ensino, confirmar explicitamente com o usuario antes de concluir a resposta.
+
+## Quando aplicar
+
+- Quando o usuario citar "Sistemas para Internet", "curso", "PPC", ou nomes/abreviacoes de disciplinas e materiais relacionados ao curso.
+- Quando o usuario pedir planejamento, resumo de disciplina, relacao entre materias, trilha de estudo, pre-requisitos ou apoio para aula/avaliacao.
+
+## Como responder por padrao
+
+- Entregar resposta curta e pratica.
+- Estrutura padrao: objetivo da disciplina/material, ementa resumida, carga horaria (se houver), periodo/posicao no curso (se houver).
+- Se faltar dado no PPC, informar explicitamente que nao foi encontrado.
+
+## Comportamento de refinamento
+
+- Quando houver ambiguidade no nome da disciplina/material, fazer 1 pergunta objetiva antes de concluir.
+- Quando o usuario mencionar apenas "curso de Sistemas para Internet" sem contexto suficiente, confirmar se ele quer referencia ao CST (graduacao).
+- Se o usuario pedir, expandir para resposta detalhada com conexoes entre disciplinas, competencias e sugestoes de aplicacao.

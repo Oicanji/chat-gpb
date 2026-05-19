@@ -1,0 +1,9 @@
+kind: section_header
+enabled: true
+priority: 60
+scope:
+  mode: tags
+  tags_any:
+  - ppc
+  tags_all: []
+pattern: ^(?:\(\^\)\s*)?\*\*Unidade Curricular:\*\*\s*(.+?)(?:\s*\*\*CH\*|\s*$)

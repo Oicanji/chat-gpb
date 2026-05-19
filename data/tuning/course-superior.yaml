@@ -1,0 +1,10 @@
+kind: course_signal
+enabled: true
+priority: 45
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+phrase: curso superior
+target: sistemas
+weight: 3

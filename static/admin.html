@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat GPB — Admin</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem;
+      line-height: 1.5;
+      background: #f5f5f5;
+      color: #333;
+    }
+    nav { margin-bottom: 1rem; font-size: 0.9rem; }
+    nav a { color: #ff7a00; margin-right: 1rem; }
+    h1 { font-size: 1.35rem; margin: 0 0 0.25rem; }
+    .meta { color: #666; font-size: 0.85rem; margin-bottom: 1rem; }
+    .main-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .main-tabs button {
+      padding: 0.5rem 1rem;
+      border: 2px solid #ccc;
+      background: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .main-tabs button.active {
+      border-color: #ff7a00;
+      background: #fff7f0;
+      color: #c45a00;
+      font-weight: 600;
+    }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tabs button {
+      padding: 0.4rem 0.8rem;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .tabs button.active { background: #ff7a00; color: #fff; border-color: #ff7a00; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid #eee; }
+    th { color: #666; font-weight: 600; }
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      background: #fff7f0;
+      border: 1px solid #ff7a00;
+      color: #c45a00;
+    }
+    .badge.rule { background: #f0f4ff; border-color: #5a7fc4; color: #3a5a9e; }
+    .badge.knowledge { background: #fff7f0; border-color: #ff7a00; color: #c45a00; }
+    .badge.tuning { background: #f0fff4; border-color: #3a9e5a; color: #2a7a45; }
+    .badge.readonly { background: #f0f0f0; border-color: #999; color: #555; }
+    .actions button {
+      margin-right: 0.25rem;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+    }
+    .actions button.danger { color: #a00; border-color: #daa; }
+    label { display: block; margin-top: 0.75rem; font-size: 0.9rem; }
+    input[type="text"], input[type="number"], textarea, select {
+      width: 100%;
+      margin-top: 0.25rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+    textarea { min-height: 80px; }
+  textarea.yaml { min-height: 140px; font-family: Consolas, monospace; font-size: 0.85rem; }
+    .tipo-radio { display: flex; gap: 1rem; margin-top: 0.5rem; }
+    .tipo-radio label { display: inline; margin: 0; }
+    .primary {
+      margin-top: 1rem;
+      padding: 0.5rem 1.2rem;
+      background: #ff7a00;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .hidden { display: none; }
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: none; align-items: center; justify-content: center;
+      z-index: 100; padding: 1rem;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: #fff; border-radius: 8px;
+      max-width: 720px; width: 100%; max-height: 85vh;
+      overflow: auto; padding: 1rem;
+    }
+    .modal pre {
+      white-space: pre-wrap; word-break: break-word;
+      background: #fafafa; padding: 0.75rem;
+      border-radius: 6px; font-size: 0.85rem;
+    }
+    .msg { padding: 0.5rem; border-radius: 6px; margin-bottom: 0.5rem; }
+    .msg.err { background: #fee; color: #900; }
+    .msg.ok { background: #efe; color: #060; }
+    h2 { font-size: 1.1rem; margin: 0 0 0.75rem; }
+    .hint { font-size: 0.8rem; color: #666; margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">Chat</a>
+    <strong>Admin</strong>
+  </nav>
+  <h1>Chat GPB — Admin</h1>
+  <p class="meta">Bases de conhecimento, regras operacionais e kinds (ajustes de busca)</p>
+  <div id="flash"></div>
+
+  <div class="main-tabs">
+    <button type="button" id="tabBases" class="active">Bases e regras</button>
+    <button type="button" id="tabKinds">Kinds</button>
+  </div>
+
+  <div id="panelBases" class="panel active">
+    <div class="card">
+      <h2>Novo cadastro</h2>
+      <form id="formBases">
+        <div class="tipo-radio">
+          <label><input type="radio" name="tipo" value="knowledge" checked> Conhecimento</label>
+          <label><input type="radio" name="tipo" value="rule"> Regra</label>
+        </div>
+        <label>Titulo <input type="text" id="tituloBase" required></label>
+        <label id="triggersWrap" class="hidden">Triggers
+          <input type="text" id="triggers" placeholder="horario, grade de aula">
+        </label>
+        <label>Conteudo
+          <textarea id="conteudoBase" placeholder="Texto ou resposta obrigatoria da rule"></textarea>
+        </label>
+        <label>Tags (opcional, virgula)
+          <input type="text" id="tagsBase" placeholder="ex.: aviso, prova">
+        </label>
+        <label>Ou arquivo (.md, .txt; rules .yaml)
+          <input type="file" id="arquivoBase" accept=".md,.txt,.yaml,.yml">
+        </label>
+        <button type="submit" class="primary">Salvar</button>
+      </form>
+    </div>
+    <div class="card">
+      <div class="tabs" id="subTabsBases">
+        <button type="button" data-filter="" class="active">Todos</button>
+        <button type="button" data-filter="knowledge">Conhecimentos</button>
+        <button type="button" data-filter="rule">Rules</button>
+      </div>
+      <h2>Cadastrados</h2>
+      <table>
+        <thead>
+          <tr><th>Titulo</th><th>Tipo</th><th>Tamanho</th><th>Triggers</th><th>Atualizado</th><th></th></tr>
+        </thead>
+        <tbody id="listaBases"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="panelKinds" class="panel">
+    <div class="card">
+      <h2>Novo kind</h2>
+      <form id="formKind">
+        <label>Titulo <input type="text" id="tituloKind" required></label>
+        <label>Kind
+          <select id="kindSelect" required>
+            <option value="stopword">stopword — palavras ignoradas na busca</option>
+            <option value="expand_tokens">expand_tokens — expandir tokens da pergunta</option>
+            <option value="alias">alias — sinonimos / siglas</option>
+            <option value="course_signal">course_signal — detectar curso</option>
+            <option value="auto_search">auto_search — pre-busca automatica</option>
+            <option value="section_header">section_header — regex de secao no documento</option>
+            <option value="search_profile">search_profile — perfil de busca (max secoes)</option>
+            <option value="tool_policy">tool_policy — quais tools usar</option>
+          </select>
+        </label>
+        <label>Prioridade (menor = antes) <input type="number" id="priority" value="100"></label>
+        <label><input type="checkbox" id="enabled" checked> Ativo</label>
+        <label>Escopo
+          <select id="scopeMode">
+            <option value="global">Global (todos os documentos)</option>
+            <option value="tags">Por tags do documento</option>
+          </select>
+        </label>
+        <label id="scopeTagsWrap" class="hidden">Tags do documento (virgula)
+          <input type="text" id="scopeTags" placeholder="ppc, sistemas">
+        </label>
+        <div id="fieldsStopword" class="kind-fields hidden">
+          <label>Palavras (uma por linha ou virgula)
+            <textarea id="valuesStopword"></textarea>
+          </label>
+        </div>
+        <div id="fieldsWhenAdd" class="kind-fields hidden">
+          <label>Quando a pergunta contem (virgula ou linha)
+            <textarea id="whenAny"></textarea>
+          </label>
+          <label>Acrescentar tokens
+            <textarea id="addTokens"></textarea>
+          </label>
+        </div>
+        <div id="fieldsCourse" class="kind-fields hidden">
+          <label>Frase <input type="text" id="phrase" placeholder="sistemas para internet"></label>
+          <label>Tag alvo (catalogo)
+            <input type="text" id="target" placeholder="sistemas, tecnico">
+          </label>
+          <label>Peso <input type="number" id="weight" value="1" min="1"></label>
+        </div>
+        <div id="fieldsPattern" class="kind-fields hidden">
+          <label>Regex (grupo 1 = titulo da secao)
+            <textarea id="pattern" class="yaml"></textarea>
+          </label>
+        </div>
+        <div id="fieldsSearchProfile" class="kind-fields hidden">
+          <label>Quando a pergunta contem
+            <textarea id="whenAnySearch"></textarea>
+          </label>
+          <label>Max. secoes <input type="number" id="maxSections" value="12" min="1"></label>
+          <label>Trecho
+            <select id="excerptMode">
+              <option value="full">full</option>
+              <option value="auto">auto</option>
+              <option value="none">none</option>
+            </select>
+          </label>
+        </div>
+        <div id="fieldsToolPolicy" class="kind-fields hidden">
+          <label>Quando a pergunta contem
+            <textarea id="whenAnyTools"></textarea>
+          </label>
+          <label>Tools (virgula)
+            <input type="text" id="toolsList" placeholder="buscar_documento, consultar_rules">
+          </label>
+        </div>
+        <label>Ou YAML completo (opcional, sobrescreve campos acima)
+          <textarea id="yamlRaw" class="yaml" placeholder="kind: search_profile&#10;when_any: [...]"></textarea>
+        </label>
+        <button type="submit" class="primary">Salvar kind</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Kinds cadastrados</h2>
+      <table>
+        <thead>
+          <tr><th>Titulo</th><th>Kind</th><th>Escopo</th><th>Prior.</th><th>Atualizado</th><th></th></tr>
+        </thead>
+        <tbody id="listaKinds"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modal">
+    <div class="modal">
+      <h2 id="modalTitle">Detalhe</h2>
+      <pre id="modalBody"></pre>
+      <div id="editPanel" class="hidden">
+        <label>Titulo <input type="text" id="editTitulo"></label>
+        <label id="editTriggersWrap">Triggers <input type="text" id="editTriggers"></label>
+        <label>Conteudo <textarea id="editConteudo"></textarea></label>
+        <button type="button" class="primary" id="btnUpdate">Atualizar</button>
+      </div>
+      <p style="margin-top:1rem">
+        <button type="button" id="btnEdit">Editar</button>
+        <button type="button" id="btnClose">Fechar</button>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    let mainView = 'bases';
+    let filterBases = '';
+    let currentId = null;
+    let currentTipo = null;
+
+    const flash = document.getElementById('flash');
+    const panelBases = document.getElementById('panelBases');
+    const panelKinds = document.getElementById('panelKinds');
+
+    function showFlash(text, ok) {
+      flash.innerHTML = '<div class="msg ' + (ok ? 'ok' : 'err') + '">' + escapeHtml(text) + '</div>';
+      setTimeout(() => { flash.innerHTML = ''; }, 4000);
+    }
+
+    function escapeHtml(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function fmtDate(iso) {
+      if (!iso) return '-';
+      try { return new Date(iso).toLocaleString('pt-BR'); } catch { return iso; }
+    }
+
+    function splitList(raw) {
+      if (!raw || !raw.trim()) return null;
+      return raw.split(/[,;\n]+/).map(s => s.trim()).filter(Boolean);
+    }
+
+    document.getElementById('tabBases').onclick = () => setMainView('bases');
+    document.getElementById('tabKinds').onclick = () => setMainView('kinds');
+
+    function setMainView(v) {
+      mainView = v;
+      document.getElementById('tabBases').classList.toggle('active', v === 'bases');
+      document.getElementById('tabKinds').classList.toggle('active', v === 'kinds');
+      panelBases.classList.toggle('active', v === 'bases');
+      panelKinds.classList.toggle('active', v === 'kinds');
+      if (v === 'bases') loadBases();
+      else loadKinds();
+    }
+
+    document.getElementById('scopeMode').onchange = () => {
+      document.getElementById('scopeTagsWrap').classList.toggle(
+        'hidden', document.getElementById('scopeMode').value !== 'tags'
+      );
+    };
+
+    document.getElementById('kindSelect').onchange = updateKindFields;
+    function updateKindFields() {
+      const k = document.getElementById('kindSelect').value;
+      document.querySelectorAll('.kind-fields').forEach(el => el.classList.add('hidden'));
+      if (k === 'stopword') document.getElementById('fieldsStopword').classList.remove('hidden');
+      if (['expand_tokens', 'alias', 'auto_search'].includes(k)) document.getElementById('fieldsWhenAdd').classList.remove('hidden');
+      if (k === 'course_signal') document.getElementById('fieldsCourse').classList.remove('hidden');
+      if (k === 'section_header') document.getElementById('fieldsPattern').classList.remove('hidden');
+      if (k === 'search_profile') {
+        document.getElementById('fieldsSearchProfile').classList.remove('hidden');
+        document.getElementById('fieldsWhenAdd').classList.remove('hidden');
+      }
+      if (k === 'tool_policy') {
+        document.getElementById('fieldsToolPolicy').classList.remove('hidden');
+        document.getElementById('fieldsWhenAdd').classList.remove('hidden');
+      }
+    }
+    updateKindFields();
+
+    document.querySelectorAll('#subTabsBases button').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('#subTabsBases button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterBases = btn.dataset.filter || '';
+        loadBases();
+      };
+    });
+
+    const triggersWrap = document.getElementById('triggersWrap');
+    document.querySelectorAll('#formBases input[name="tipo"]').forEach(r => {
+      r.onchange = () => triggersWrap.classList.toggle('hidden', document.querySelector('#formBases input[name="tipo"]:checked').value !== 'rule');
+    });
+
+    async function loadBases() {
+      const q = filterBases ? '?type=' + encodeURIComponent(filterBases) : '';
+      const r = await fetch('/api/knowledge' + q);
+      const d = await r.json();
+      const items = (d.items || []).filter(i => i.type !== 'tuning');
+      const lista = document.getElementById('listaBases');
+      if (!items.length) {
+        lista.innerHTML = '<tr><td colspan="6">Nenhum item.</td></tr>';
+        return;
+      }
+      const labels = { knowledge: 'Conhecimento', rule: 'Regra' };
+      lista.innerHTML = items.map(item => rowHtml(item, labels[item.type] || item.type)).join('');
+    }
+
+    async function loadKinds() {
+      const r = await fetch('/api/knowledge?type=tuning');
+      const d = await r.json();
+      const lista = document.getElementById('listaKinds');
+      if (!d.items.length) {
+        lista.innerHTML = '<tr><td colspan="6">Nenhum kind.</td></tr>';
+        return;
+      }
+      lista.innerHTML = d.items.map(item => {
+        const ro = !!item.readonly;
+        const kind = item.kind || item.preview || '-';
+        return `<tr>
+          <td>${escapeHtml(item.title)}${ro ? ' <span class="badge readonly">integrado</span>' : ''}</td>
+          <td><span class="badge tuning">${escapeHtml(kind)}</span></td>
+          <td>${escapeHtml(item.preview || '-')}</td>
+          <td>-</td>
+          <td>${fmtDate(item.updated_at)}</td>
+          <td class="actions">
+            <button type="button" data-action="view" data-id="${item.id}">Ver</button>
+            ${ro ? '' : '<button type="button" data-action="delete" data-id="' + item.id + '" class="danger">Excluir</button>'}
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function rowHtml(item, typeLabel) {
+      const ro = !!item.readonly;
+      const tags = (item.tags || []).length ? '<br><span style="font-size:0.75rem;color:#666">' + escapeHtml(item.tags.join(', ')) + '</span>' : '';
+      return `<tr>
+        <td>${escapeHtml(item.title)}${ro ? ' <span class="badge readonly">integrado</span>' : ''}${tags}</td>
+        <td><span class="badge ${item.type}">${typeLabel}</span></td>
+        <td>${item.size_mb || '-'}</td>
+        <td style="font-size:0.8rem">${item.triggers?.length ? escapeHtml(item.triggers.join(', ')) : '-'}</td>
+        <td>${fmtDate(item.updated_at)}</td>
+        <td class="actions">
+          <button type="button" data-action="view" data-id="${item.id}">Ver</button>
+          ${ro ? '' : '<button type="button" data-action="delete" data-id="' + item.id + '" class="danger">Excluir</button>'}
+        </td>
+      </tr>`;
+    }
+
+    function bindListClick(tbody, reloadFn) {
+      tbody.addEventListener('click', async (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const id = btn.dataset.id;
+        if (btn.dataset.action === 'view') await openModal(id);
+        else if (btn.dataset.action === 'delete') {
+          if (!confirm('Excluir?')) return;
+          const r = await fetch('/api/knowledge/' + encodeURIComponent(id), { method: 'DELETE' });
+          const d = await r.json();
+          if (r.ok) { showFlash('Excluido.', true); reloadFn(); }
+          else showFlash(d.detail || 'Erro', false);
+        }
+      });
+    }
+    bindListClick(document.getElementById('listaBases'), loadBases);
+    bindListClick(document.getElementById('listaKinds'), loadKinds);
+
+    async function openModal(id) {
+      const r = await fetch('/api/knowledge/' + encodeURIComponent(id));
+      const item = await r.json();
+      if (!r.ok) { showFlash(item.detail || 'Erro', false); return; }
+      currentId = item.id;
+      currentTipo = item.type;
+      const ro = !!item.readonly;
+      document.getElementById('modalTitle').textContent = item.title;
+      document.getElementById('modalBody').textContent = item.content || '';
+      document.getElementById('editTitulo').value = item.title;
+      document.getElementById('editTriggers').value = (item.triggers || []).join(', ');
+      document.getElementById('editConteudo').value = item.content || '';
+      document.getElementById('editTriggersWrap').classList.toggle('hidden', currentTipo !== 'rule');
+      document.getElementById('editPanel').classList.add('hidden');
+      document.getElementById('btnEdit').style.display = ro ? 'none' : '';
+      document.getElementById('modal').classList.add('open');
+    }
+
+    document.getElementById('btnClose').onclick = () => document.getElementById('modal').classList.remove('open');
+    document.getElementById('btnEdit').onclick = () => document.getElementById('editPanel').classList.remove('hidden');
+    document.getElementById('btnUpdate').onclick = async () => {
+      const body = {
+        title: document.getElementById('editTitulo').value,
+        content: document.getElementById('editConteudo').value,
+      };
+      if (currentTipo === 'rule') body.triggers = document.getElementById('editTriggers').value;
+      const r = await fetch('/api/knowledge/' + encodeURIComponent(currentId), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const d = await r.json();
+      if (r.ok) {
+        showFlash('Atualizado.', true);
+        document.getElementById('modal').classList.remove('open');
+        mainView === 'kinds' ? loadKinds() : loadBases();
+      } else showFlash(d.detail || 'Erro', false);
+    };
+
+    document.getElementById('formBases').onsubmit = async (e) => {
+      e.preventDefault();
+      const type = document.querySelector('#formBases input[name="tipo"]:checked').value;
+      const title = document.getElementById('tituloBase').value.trim();
+      const content = document.getElementById('conteudoBase').value;
+      const triggers = document.getElementById('triggers').value;
+      const tags = splitList(document.getElementById('tagsBase').value);
+      const fileInput = document.getElementById('arquivoBase');
+      try {
+        let r;
+        if (fileInput.files.length) {
+          const fd = new FormData();
+          fd.append('type', type);
+          fd.append('title', title);
+          fd.append('triggers', triggers);
+          fd.append('arquivo', fileInput.files[0]);
+          r = await fetch('/api/knowledge/upload', { method: 'POST', body: fd });
+        } else {
+          r = await fetch('/api/knowledge', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type, title, content, triggers: triggers || null, tags }),
+          });
+        }
+        const d = await r.json();
+        if (r.ok) {
+          showFlash('Salvo: ' + d.id, true);
+          e.target.reset();
+          fileInput.value = '';
+          triggersWrap.classList.add('hidden');
+          loadBases();
+        } else showFlash(typeof d.detail === 'string' ? d.detail : JSON.stringify(d.detail), false);
+      } catch (err) { showFlash(err.message, false); }
+    };
+
+    document.getElementById('formKind').onsubmit = async (e) => {
+      e.preventDefault();
+      const yamlRaw = document.getElementById('yamlRaw').value.trim();
+      const kind = document.getElementById('kindSelect').value;
+      const body = {
+        type: 'tuning',
+        title: document.getElementById('tituloKind').value.trim(),
+        content: yamlRaw,
+        priority: parseInt(document.getElementById('priority').value, 10) || 100,
+        enabled: document.getElementById('enabled').checked,
+        scope_mode: document.getElementById('scopeMode').value,
+        scope_tags_any: document.getElementById('scopeTags').value,
+      };
+      if (!yamlRaw) {
+        body.kind = kind;
+        if (kind === 'stopword') body.values = document.getElementById('valuesStopword').value;
+        if (['expand_tokens', 'alias', 'auto_search'].includes(kind)) {
+          body.when_any = document.getElementById('whenAny').value;
+          body.add = document.getElementById('addTokens').value;
+        }
+        if (kind === 'course_signal') {
+          body.phrase = document.getElementById('phrase').value;
+          body.target = document.getElementById('target').value;
+          body.weight = parseInt(document.getElementById('weight').value, 10) || 1;
+        }
+        if (kind === 'section_header') body.pattern = document.getElementById('pattern').value;
+        if (kind === 'search_profile') {
+          body.when_any = document.getElementById('whenAnySearch').value || document.getElementById('whenAny').value;
+          body.max_sections = parseInt(document.getElementById('maxSections').value, 10) || 12;
+          body.excerpt = document.getElementById('excerptMode').value;
+        }
+        if (kind === 'tool_policy') {
+          body.when_any = document.getElementById('whenAnyTools').value || document.getElementById('whenAny').value;
+          body.tools = document.getElementById('toolsList').value;
+        }
+      }
+      const r = await fetch('/api/knowledge', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const d = await r.json();
+      if (r.ok) {
+        showFlash('Kind salvo: ' + d.id, true);
+        e.target.reset();
+        document.getElementById('enabled').checked = true;
+        document.getElementById('priority').value = '100';
+        updateKindFields();
+        loadKinds();
+      } else showFlash(typeof d.detail === 'string' ? d.detail : JSON.stringify(d.detail), false);
+    };
+
+    loadBases();
+  </script>
+</body>
+</html>

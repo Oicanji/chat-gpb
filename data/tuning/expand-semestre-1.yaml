@@ -1,0 +1,21 @@
+kind: expand_tokens
+enabled: true
+priority: 22
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- primeiro semestre
+- 1o semestre
+- 1 semestre
+- 1º semestre
+- primeira fase
+- 1ª fase
+- 1a fase
+add:
+- 1a
+- fase
+- total
+- carga
+- horaria

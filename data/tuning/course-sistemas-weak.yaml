@@ -1,0 +1,9 @@
+kind: course_signal
+enabled: true
+priority: 46
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+phrase: em sistemas
+target: sistemas

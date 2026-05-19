@@ -1,0 +1,18 @@
+kind: expand_tokens
+enabled: true
+priority: 24
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- terceiro semestre
+- 3o semestre
+- 3 semestre
+- terceira fase
+add:
+- 3a
+- fase
+- total
+- carga
+- horaria

@@ -1,0 +1,18 @@
+kind: expand_tokens
+enabled: true
+priority: 23
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- segundo semestre
+- 2o semestre
+- 2 semestre
+- segunda fase
+add:
+- 2a
+- fase
+- total
+- carga
+- horaria

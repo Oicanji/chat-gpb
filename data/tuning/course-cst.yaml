@@ -1,0 +1,10 @@
+kind: course_signal
+enabled: true
+priority: 44
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+phrase: cst
+target: sistemas
+weight: 2

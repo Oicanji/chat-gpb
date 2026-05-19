@@ -1,0 +1,10 @@
+kind: auto_search
+enabled: true
+priority: 50
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- bibliografia
+- bibliografica

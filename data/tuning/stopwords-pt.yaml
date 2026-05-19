@@ -1,0 +1,39 @@
+kind: stopword
+enabled: true
+priority: 10
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+values:
+- para
+- com
+- sem
+- sobre
+- qual
+- quais
+- como
+- esse
+- essa
+- este
+- esta
+- curso
+- cst
+- superior
+- estudo
+- estudar
+- materiais
+- material
+- sao
+- ser
+- uma
+- uns
+- das
+- dos
+- nas
+- nos
+- que
+- por
+- mais
+- meu
+- minha

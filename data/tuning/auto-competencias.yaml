@@ -1,0 +1,12 @@
+kind: auto_search
+enabled: true
+priority: 52
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- competencia
+- competencias
+- conhecimentos
+- habilidades

@@ -1,0 +1,29 @@
+kind: search_profile
+enabled: true
+priority: 45
+scope:
+  mode: tags
+  tags_any:
+  - ppc
+  tags_all: []
+when_any:
+- primeiro semestre
+- segunda semestre
+- segundo semestre
+- terceiro semestre
+- quarto semestre
+- quinto semestre
+- sexto semestre
+- 1ª fase
+- 1a fase
+- 2ª fase
+- 2a fase
+- 3ª fase
+- 3a fase
+- todas as materias
+- todas as matérias
+- matriz curricular
+- quais materias
+- lista de materias
+max_sections: 8
+excerpt: full

@@ -1,0 +1,13 @@
+kind: tool_policy
+enabled: true
+priority: 70
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- horario
+- grade de aula
+- horarios
+tools:
+- consultar_rules

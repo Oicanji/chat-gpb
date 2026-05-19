@@ -1,0 +1,16 @@
+kind: expand_tokens
+enabled: true
+priority: 20
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- bibliografia
+- bibliografica
+- livro
+- referencia
+add:
+- bibliografia
+- complementar
+- basica

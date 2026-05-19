@@ -1,0 +1,17 @@
+kind: expand_tokens
+enabled: true
+priority: 21
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- ementa
+- conteudo
+- conhecimento
+- habilidade
+add:
+- conhecimentos
+- habilidades
+- unidade
+- curricular

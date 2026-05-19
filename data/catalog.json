@@ -1,0 +1,385 @@
+{
+  "items": [
+    {
+      "id": "horario",
+      "type": "rule",
+      "title": "Horario de aulas do campus Garopaba",
+      "triggers": [
+        "horario",
+        "horário",
+        "horarios",
+        "horários",
+        "grade de aulas",
+        "quando tem aula",
+        "que horas",
+        "horario de aula",
+        "horário de aula"
+      ],
+      "tags": [],
+      "filename": "rules/horario.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T00:00:00+00:00",
+      "updated_at": "2026-05-16T00:00:00+00:00"
+    },
+    {
+      "id": "ppc-tecnico",
+      "type": "knowledge",
+      "title": "PPC Tecnico em Informatica",
+      "tags": [
+        "ppc",
+        "tecnico"
+      ],
+      "filename": "knowledge/ppc-tecnico.md",
+      "readonly": true,
+      "created_at": "2026-05-16T00:00:00+00:00",
+      "updated_at": "2026-05-16T00:00:00+00:00"
+    },
+    {
+      "id": "ppc-sistemas",
+      "type": "knowledge",
+      "title": "PPC Sistemas para Internet",
+      "tags": [
+        "ppc",
+        "sistemas"
+      ],
+      "filename": "knowledge/ppc-sistemas.md",
+      "readonly": true,
+      "created_at": "2026-05-16T00:00:00+00:00",
+      "updated_at": "2026-05-16T00:00:00+00:00"
+    },
+    {
+      "id": "curso-tecnico",
+      "type": "knowledge",
+      "title": "Contexto do curso — Tecnico em Informatica",
+      "tags": [
+        "curso",
+        "tecnico"
+      ],
+      "filename": "knowledge/curso-tecnico.mdc",
+      "readonly": true,
+      "created_at": "2026-05-16T00:00:00+00:00",
+      "updated_at": "2026-05-16T00:00:00+00:00"
+    },
+    {
+      "id": "curso-sistemas",
+      "type": "knowledge",
+      "title": "Contexto do curso — Sistemas para Internet",
+      "tags": [
+        "curso",
+        "sistemas"
+      ],
+      "filename": "knowledge/curso-sistemas.mdc",
+      "readonly": true,
+      "created_at": "2026-05-16T00:00:00+00:00",
+      "updated_at": "2026-05-16T00:00:00+00:00"
+    },
+    {
+      "id": "stopwords-pt",
+      "type": "tuning",
+      "title": "Stopwords (busca)",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/stopwords-pt.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "expand-bibliografia",
+      "type": "tuning",
+      "title": "Expandir: bibliografia",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/expand-bibliografia.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "expand-ementa",
+      "type": "tuning",
+      "title": "Expandir: ementa / competencias",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/expand-ementa.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "alias-ieu",
+      "type": "tuning",
+      "title": "Alias: IEU / UX",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/alias-ieu.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "alias-interface",
+      "type": "tuning",
+      "title": "Alias: interface e experiencia",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/alias-interface.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "alias-algoritmos",
+      "type": "tuning",
+      "title": "Alias: algoritmos",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/alias-algoritmos.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "course-tecnico-em",
+      "type": "tuning",
+      "title": "Curso: tecnico em informatica",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/course-tecnico-em.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "course-tecnico-integrado",
+      "type": "tuning",
+      "title": "Curso: tecnico integrado",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/course-tecnico-integrado.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "course-ensino-medio",
+      "type": "tuning",
+      "title": "Curso: ensino medio integrado",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/course-ensino-medio.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "course-sistemas-internet",
+      "type": "tuning",
+      "title": "Curso: sistemas para internet",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/course-sistemas-internet.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "course-cst",
+      "type": "tuning",
+      "title": "Curso: CST",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/course-cst.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "course-superior",
+      "type": "tuning",
+      "title": "Curso: curso superior",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/course-superior.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "course-no-superior",
+      "type": "tuning",
+      "title": "Curso: no superior (CST)",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/course-no-superior.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T20:00:00+00:00",
+      "updated_at": "2026-05-16T20:00:00+00:00"
+    },
+    {
+      "id": "course-superior-solo",
+      "type": "tuning",
+      "title": "Curso: superior (CST)",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/course-superior-solo.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T20:00:00+00:00",
+      "updated_at": "2026-05-16T20:00:00+00:00"
+    },
+    {
+      "id": "course-sistemas-weak",
+      "type": "tuning",
+      "title": "Curso (fraco): em sistemas",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/course-sistemas-weak.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "auto-bibliografia",
+      "type": "tuning",
+      "title": "Auto-busca: bibliografia",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/auto-bibliografia.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "auto-ementa",
+      "type": "tuning",
+      "title": "Auto-busca: ementa",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/auto-ementa.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "auto-competencias",
+      "type": "tuning",
+      "title": "Auto-busca: competencias",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/auto-competencias.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "auto-disciplina",
+      "type": "tuning",
+      "title": "Auto-busca: disciplina / PPC",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/auto-disciplina.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "auto-materiais",
+      "type": "tuning",
+      "title": "Auto-busca: materiais complementares",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/auto-materiais.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "auto-referencias",
+      "type": "tuning",
+      "title": "Auto-busca: referencias / livros",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/auto-referencias.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "section-ppc-uc",
+      "type": "tuning",
+      "title": "Secao PPC: Unidade Curricular",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/section-ppc-uc.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T17:21:04.310965+00:00",
+      "updated_at": "2026-05-16T17:21:04.310965+00:00"
+    },
+    {
+      "id": "search-matriz-fase",
+      "type": "tuning",
+      "title": "Busca: lista / fase / semestre",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/search-matriz-fase.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T18:14:43.928696+00:00",
+      "updated_at": "2026-05-16T18:14:43.928696+00:00"
+    },
+    {
+      "id": "tool-horario",
+      "type": "tuning",
+      "title": "Tools: horario / campus",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/tool-horario.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T18:14:43.928696+00:00",
+      "updated_at": "2026-05-16T18:14:43.928696+00:00"
+    },
+    {
+      "id": "tool-ppc",
+      "type": "tuning",
+      "title": "Tools: PPC / disciplina",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/tool-ppc.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T18:14:43.928696+00:00",
+      "updated_at": "2026-05-16T18:14:43.928696+00:00"
+    },
+    {
+      "id": "expand-semestre-1",
+      "type": "tuning",
+      "title": "Expandir: 1o semestre / 1a fase",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/expand-semestre-1.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T18:50:26.011539+00:00",
+      "updated_at": "2026-05-16T18:50:26.011539+00:00"
+    },
+    {
+      "id": "expand-semestre-2",
+      "type": "tuning",
+      "title": "Expandir: 2o semestre / 2a fase",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/expand-semestre-2.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T18:50:26.011539+00:00",
+      "updated_at": "2026-05-16T18:50:26.011539+00:00"
+    },
+    {
+      "id": "expand-semestre-3",
+      "type": "tuning",
+      "title": "Expandir: 3o semestre / 3a fase",
+      "triggers": [],
+      "tags": [],
+      "filename": "tuning/expand-semestre-3.yaml",
+      "readonly": true,
+      "created_at": "2026-05-16T18:50:26.011539+00:00",
+      "updated_at": "2026-05-16T18:50:26.011539+00:00"
+    }
+  ]
+}

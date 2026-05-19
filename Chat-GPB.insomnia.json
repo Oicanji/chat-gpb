@@ -1,0 +1,370 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-05-16T12:00:00.000Z",
+  "__export_source": "chat-gpb",
+  "resources": [
+    {
+      "_id": "wrk_chat_gpb",
+      "_type": "workspace",
+      "name": "Chat GPB",
+      "description": "API local IFSC Garopaba — http://127.0.0.1:8765",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://127.0.0.1:8765",
+        "item_id": ""
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url", "item_id"]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": -1000000000000,
+      "parentId": "wrk_chat_gpb"
+    },
+    {
+      "_id": "env_local",
+      "_type": "environment",
+      "name": "Local",
+      "data": {
+        "base_url": "http://127.0.0.1:8765",
+        "item_id": ""
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url", "item_id"]
+      },
+      "color": "#7d69cb",
+      "isPrivate": false,
+      "metaSortKey": -999999999999,
+      "parentId": "env_base"
+    },
+    {
+      "_id": "fld_sistema",
+      "_type": "request_group",
+      "name": "Sistema",
+      "description": "Health, metadados e paginas",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -3000000000000,
+      "parentId": "wrk_chat_gpb"
+    },
+    {
+      "_id": "fld_catalogo",
+      "_type": "request_group",
+      "name": "Catalogo",
+      "description": "knowledge, rule, tuning",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -2000000000000,
+      "parentId": "wrk_chat_gpb"
+    },
+    {
+      "_id": "fld_chat",
+      "_type": "request_group",
+      "name": "Chat",
+      "description": "Texto livre e structured output",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1000000000000,
+      "parentId": "wrk_chat_gpb"
+    },
+    {
+      "_id": "req_health",
+      "_type": "request",
+      "name": "Health",
+      "description": "Status Ollama + catalogo",
+      "method": "GET",
+      "url": "{{ base_url }}/health",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "parentId": "fld_sistema",
+      "metaSortKey": -1000000000000
+    },
+    {
+      "_id": "req_root_json",
+      "_type": "request",
+      "name": "Root (JSON metadados)",
+      "description": "Sem index.html: retorna links docs, chat, etc.",
+      "method": "GET",
+      "url": "{{ base_url }}/",
+      "headers": [
+        { "name": "Accept", "value": "application/json", "disabled": false }
+      ],
+      "parameters": [],
+      "body": {},
+      "parentId": "fld_sistema",
+      "metaSortKey": -900000000000
+    },
+    {
+      "_id": "req_openapi",
+      "_type": "request",
+      "name": "OpenAPI JSON",
+      "method": "GET",
+      "url": "{{ base_url }}/openapi.json",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "parentId": "fld_sistema",
+      "metaSortKey": -800000000000
+    },
+    {
+      "_id": "req_docs",
+      "_type": "request",
+      "name": "Swagger UI",
+      "method": "GET",
+      "url": "{{ base_url }}/docs",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "parentId": "fld_sistema",
+      "metaSortKey": -700000000000
+    },
+    {
+      "_id": "req_admin",
+      "_type": "request",
+      "name": "Admin HTML",
+      "method": "GET",
+      "url": "{{ base_url }}/admin",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "parentId": "fld_sistema",
+      "metaSortKey": -600000000000
+    },
+    {
+      "_id": "req_knowledge_list",
+      "_type": "request",
+      "name": "Listar catalogo",
+      "method": "GET",
+      "url": "{{ base_url }}/api/knowledge",
+      "headers": [],
+      "parameters": [
+        { "name": "type", "value": "", "description": "knowledge | rule | tuning", "disabled": true }
+      ],
+      "body": {},
+      "parentId": "fld_catalogo",
+      "metaSortKey": -1000000000000
+    },
+    {
+      "_id": "req_knowledge_list_tuning",
+      "_type": "request",
+      "name": "Listar kinds (tuning)",
+      "method": "GET",
+      "url": "{{ base_url }}/api/knowledge",
+      "headers": [],
+      "parameters": [
+        { "name": "type", "value": "tuning", "disabled": false }
+      ],
+      "body": {},
+      "parentId": "fld_catalogo",
+      "metaSortKey": -950000000000
+    },
+    {
+      "_id": "req_knowledge_get",
+      "_type": "request",
+      "name": "Obter item",
+      "method": "GET",
+      "url": "{{ base_url }}/api/knowledge/{{ item_id }}",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "parentId": "fld_catalogo",
+      "metaSortKey": -900000000000
+    },
+    {
+      "_id": "req_knowledge_create",
+      "_type": "request",
+      "name": "Criar knowledge",
+      "method": "POST",
+      "url": "{{ base_url }}/api/knowledge",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json", "disabled": false }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"type\": \"knowledge\",\n  \"title\": \"Exemplo\",\n  \"content\": \"Conteudo de teste\",\n  \"tags\": []\n}"
+      },
+      "parentId": "fld_catalogo",
+      "metaSortKey": -850000000000
+    },
+    {
+      "_id": "req_knowledge_create_rule",
+      "_type": "request",
+      "name": "Criar rule",
+      "method": "POST",
+      "url": "{{ base_url }}/api/knowledge",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json", "disabled": false }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"type\": \"rule\",\n  \"title\": \"Regra exemplo\",\n  \"content\": \"Resposta obrigatoria da rule\",\n  \"triggers\": [\"exemplo\", \"teste\"]\n}"
+      },
+      "parentId": "fld_catalogo",
+      "metaSortKey": -800000000000
+    },
+    {
+      "_id": "req_knowledge_upload",
+      "_type": "request",
+      "name": "Upload arquivo",
+      "method": "POST",
+      "url": "{{ base_url }}/api/knowledge/upload",
+      "headers": [],
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          { "name": "type", "value": "knowledge", "type": "text" },
+          { "name": "title", "value": "Upload teste", "type": "text" },
+          { "name": "triggers", "value": "", "type": "text" },
+          { "name": "arquivo", "value": "", "type": "file", "fileName": "" }
+        ]
+      },
+      "parentId": "fld_catalogo",
+      "metaSortKey": -750000000000
+    },
+    {
+      "_id": "req_knowledge_update",
+      "_type": "request",
+      "name": "Atualizar item",
+      "method": "PUT",
+      "url": "{{ base_url }}/api/knowledge/{{ item_id }}",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json", "disabled": false }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Titulo atualizado\",\n  \"content\": \"Conteudo atualizado\"\n}"
+      },
+      "parentId": "fld_catalogo",
+      "metaSortKey": -700000000000
+    },
+    {
+      "_id": "req_knowledge_delete",
+      "_type": "request",
+      "name": "Remover item",
+      "method": "DELETE",
+      "url": "{{ base_url }}/api/knowledge/{{ item_id }}",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "parentId": "fld_catalogo",
+      "metaSortKey": -650000000000
+    },
+    {
+      "_id": "req_chat",
+      "_type": "request",
+      "name": "Chat (texto livre)",
+      "description": "Resposta em message.content",
+      "method": "POST",
+      "url": "{{ base_url }}/api/chat",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json", "disabled": false }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Qual o horario das aulas?\"\n    }\n  ],\n  \"stream\": false\n}"
+      },
+      "parentId": "fld_chat",
+      "metaSortKey": -1000000000000
+    },
+    {
+      "_id": "req_chat_bibliografia",
+      "_type": "request",
+      "name": "Chat — bibliografia IEU",
+      "method": "POST",
+      "url": "{{ base_url }}/api/chat",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json", "disabled": false }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Bibliografia complementar de Interfaces e Experiencia do Usuario (CST)\"\n    }\n  ],\n  \"stream\": false\n}"
+      },
+      "parentId": "fld_chat",
+      "metaSortKey": -900000000000
+    },
+    {
+      "_id": "req_chat_structured",
+      "_type": "request",
+      "name": "Chat structured",
+      "description": "Resposta em data (JSON validado pelo schema)",
+      "method": "POST",
+      "url": "{{ base_url }}/api/chat/structured",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json", "disabled": false }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Bibliografia complementar Interfaces e Experiencia do Usuario CST\"\n    }\n  ],\n  \"response_schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"disciplina\": { \"type\": \"string\" },\n      \"bibliografia_complementar\": {\n        \"type\": \"array\",\n        \"items\": { \"type\": \"string\" }\n      }\n    },\n    \"required\": [\"disciplina\", \"bibliografia_complementar\"]\n  }\n}"
+      },
+      "parentId": "fld_chat",
+      "metaSortKey": -800000000000
+    },
+    {
+      "_id": "req_chat_structured_simple",
+      "_type": "request",
+      "name": "Chat structured (schema simples)",
+      "method": "POST",
+      "url": "{{ base_url }}/api/chat/structured",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json", "disabled": false }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Bibliografia IEU\"\n    }\n  ],\n  \"response_schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"disciplina\": { \"type\": \"string\" },\n      \"itens\": {\n        \"type\": \"array\",\n        \"items\": { \"type\": \"string\" }\n      }\n    },\n    \"required\": [\"disciplina\", \"itens\"]\n  }\n}"
+      },
+      "parentId": "fld_chat",
+      "metaSortKey": -700000000000
+    },
+    {
+      "_id": "req_chat_structured_informal",
+      "_type": "request",
+      "name": "Chat structured — materias 3o sem CST (informal)",
+      "description": "Formato na mensagem; sem response_schema",
+      "method": "POST",
+      "url": "{{ base_url }}/api/chat/structured",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json", "disabled": false }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Me de todas as materias do terceiro semestre do curso de cst.\\n{\\n   [\\n       \\\"nome\\\":\\\"string, nome da materia por extenso\\\",\\n       \\\"sigla\\\":\\\"string\\\",\\n       \\\"horas\\\":\\\"int com o total de horas daquela materia\\\"\\n   ]...\\n}\"\n    }\n  ]\n}"
+      },
+      "parentId": "fld_chat",
+      "metaSortKey": -650000000000
+    },
+    {
+      "_id": "req_whatsapp_assist",
+      "_type": "request",
+      "name": "WhatsApp assist",
+      "description": "Explicacao + resposta sugerida (userscript assistente-whatsapp)",
+      "method": "POST",
+      "url": "{{ base_url }}/api/whatsapp/assist",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json", "disabled": false }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"conversation_title\": \"GPTralaleiros\",\n  \"messages\": [\n    { \"author\": \"Rian\", \"text\": \"Tem rodizio de churrasco?\", \"outgoing\": false },\n    { \"author\": \"Voce\", \"text\": \"Vou verificar e ja retorno.\", \"outgoing\": true }\n  ]\n}"
+      },
+      "parentId": "fld_chat",
+      "metaSortKey": -600000000000
+    }
+  ]
+}

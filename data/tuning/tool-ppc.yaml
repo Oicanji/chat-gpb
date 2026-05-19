@@ -1,0 +1,16 @@
+kind: tool_policy
+enabled: true
+priority: 71
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- bibliografia
+- ementa
+- disciplina
+- ppc
+- unidade curricular
+- carga horaria
+tools:
+- buscar_documento

@@ -1,0 +1,14 @@
+kind: alias
+enabled: true
+priority: 32
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- algoritmo
+- programacao
+add:
+- algoritmos
+- programacao
+- fundamentos

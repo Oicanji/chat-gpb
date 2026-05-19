@@ -1,0 +1,15 @@
+kind: alias
+enabled: true
+priority: 30
+scope:
+  mode: global
+  tags_any: []
+  tags_all: []
+when_any:
+- ieu
+- ux
+- ui
+add:
+- interfaces
+- experiencia
+- usuario
