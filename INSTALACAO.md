@@ -4,7 +4,7 @@ API local de chat com Qwen (Ollama), busca nos PPCs e rules declarativas.
 
 ## 1. Ollama
 
-1. Instale em https://ollama.com (ja feito no seu PC).
+1. Instale em https://ollama.com
 2. Baixe o modelo:
 
 ```bash
